@@ -9,10 +9,8 @@ public class Produto {
     private Categoria categoria;
     private Fornecedor fornecedor;
 
-
-
-    public Produto(int id, String nome, String descricao, int quantidade, double preco, Categoria categoria,
-            Fornecedor fornecedor) {
+    // Construtor correto
+    public Produto(int id, String nome, String descricao, int quantidade, double preco, Categoria categoria, Fornecedor fornecedor) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -23,90 +21,24 @@ public class Produto {
     }
 
 
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public int getId() {
-        return id;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
+    public int getQuantidade() { return quantidade; }
+    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public double getPreco() { return preco; }
+    public void setPreco(double preco) { this.preco = preco; }
 
+    public Categoria getCategoria() { return categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 
-
-    public String getNome() {
-        return nome;
-    }
-
-
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-
-
-    public double getPreco() {
-        return preco;
-    }
-
-
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
-    
-
-    
+    public Fornecedor getFornecedor() { return fornecedor; }
+    public void setFornecedor(Fornecedor fornecedor) { this.fornecedor = fornecedor; }
 }
