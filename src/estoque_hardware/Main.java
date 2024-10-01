@@ -5,48 +5,72 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         EstoqueService estoqueService = new EstoqueService();
-        Scanner scanner = new Scanner(System.in);
+        ProdutoFactory produtoFactory = new ProdutoConcretoFactory(); // Instanciando a fábrica de produtos
+        Scanner scanner = new Scanner(System.in).useLocale(java.util.Locale.US);
 
+        boolean continuar = true;
 
-        System.out.println("Digite o nome do produto:");
-        String nomeProduto = scanner.nextLine();
+        while (continuar) {
+            System.out.println("\nEscolha uma operação:");
+            System.out.println("1. Adicionar produto");
+            System.out.println("2. Editar produto");
+            System.out.println("3. Remover produto");
+            System.out.println("4. Listar produtos");
+            System.out.println("5. Sair");
 
-        System.out.println("Digite a descrição do produto:");
-        String descricaoProduto = scanner.nextLine();
+            int opcao = scanner.nextInt();
+            scanner.nextLine();  // Limpa o buffer
 
-        System.out.println("Digite a quantidade do produto:");
-        int quantidadeProduto = scanner.nextInt();
+            switch (opcao) {
+                case 1:
+                    // Adicionar produto
+                    System.out.println("Digite as informações do produto no formato:");
+                    System.out.println("nome,descrição,quantidade,preço,categoria");
 
-        System.out.println("Digite o preço do produto:");
-        double precoProduto = scanner.nextDouble();
+                    String[] dados = scanner.nextLine().split(",");
+                    Categoria categoria = new Categoria(1, dados[4]);
 
-        scanner.nextLine();
+                    // Criando o produto via Factory
+                    Produto novoProduto = produtoFactory.criarProduto(dados[0], dados[1], Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), categoria);
+                    estoqueService.adicionarProduto(novoProduto);
+                    break;
 
-        System.out.println("Digite a categoria do produto:");
-        String nomeCategoria = scanner.nextLine();
+                case 2:
+                    // Editar produto
+                    System.out.println("Digite o ID do produto a ser editado:");
+                    int idEditar = scanner.nextInt();
+                    scanner.nextLine(); // Limpa o buffer
+                    System.out.println("Digite as novas informações do produto no formato:");
+                    System.out.println("nome,descrição,quantidade,preço,categoria");
 
-        System.out.println("Digite o nome do fornecedor:");
-        String nomeFornecedor = scanner.nextLine();
+                    String[] novosDados = scanner.nextLine().split(",");
+                    Categoria novaCategoria = new Categoria(1, novosDados[4]);
 
-        System.out.println("Digite o endereço do fornecedor:");
-        String enderecoFornecedor = scanner.nextLine();
+                    Produto produtoEditado = new Produto(idEditar, novosDados[0], novosDados[1], Integer.parseInt(novosDados[2]), Double.parseDouble(novosDados[3]), novaCategoria, null);
+                    estoqueService.atualizarProduto(idEditar, produtoEditado);
+                    break;
 
-        System.out.println("Digite o telefone do fornecedor:");
-        String telefoneFornecedor = scanner.nextLine();
+                case 3:
+                    // Remover produto
+                    System.out.println("Digite o ID do produto a ser removido:");
+                    int idRemover = scanner.nextInt();
+                    estoqueService.removerProduto(idRemover);
+                    break;
 
-        System.out.println("Digite o email do fornecedor:");
-        String emailFornecedor = scanner.nextLine();
+                case 4:
+                    // Listar produtos
+                    estoqueService.listarProdutos();
+                    break;
 
-        Categoria categoria = new Categoria(1, nomeCategoria);
-        Fornecedor fornecedor = new Fornecedor(1, nomeFornecedor, enderecoFornecedor, telefoneFornecedor, emailFornecedor);
+                case 5:
+                    // Sair
+                    continuar = false;
+                    break;
 
-
-        Produto novoProduto = new Produto(1, nomeProduto, descricaoProduto, quantidadeProduto, precoProduto, categoria, fornecedor);
-
-
-        estoqueService.adicionarProduto(novoProduto);
-
-        estoqueService.listarProdutos();
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
 
         scanner.close();
     }

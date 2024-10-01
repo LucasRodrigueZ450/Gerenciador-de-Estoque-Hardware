@@ -9,7 +9,7 @@ public class Produto {
     private Categoria categoria;
     private Fornecedor fornecedor;
 
-    // Construtor correto
+    // Construtoe
     public Produto(int id, String nome, String descricao, int quantidade, double preco, Categoria categoria, Fornecedor fornecedor) {
         this.id = id;
         this.nome = nome;
